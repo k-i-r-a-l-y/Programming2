@@ -1,0 +1,3 @@
+1652;Pava IC;Budapest-Nyugati;Nyiregyhaza
+617;Hajdu IC;Nyiregyhaza;Budapest-Nyugati
+1023;Nyirseg IC;Tokaj;Debrecen

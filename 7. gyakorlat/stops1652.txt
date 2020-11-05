@@ -1,0 +1,10 @@
+1652;0;Budapest-Nyugati;8.23
+1652;11;Kobanya-Kispest;8.37
+1652;18;Ferihegy;8.43
+1652;100;Szolnok;9.38
+1652;177;Puspokladany;10.21
+1652;221;Debrecen;11.02
+1652;270;Nyiregyhaza;11.34
+1652;73;Cegled;9.18
+1652;201;Hajduszoboszlo;10.41
+1652;5;Zuglo;8.29
