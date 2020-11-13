@@ -1,0 +1,28 @@
+Pava IC (1652) from: Budapest-Nyugati to: Nyiregyhaza
+
+10:21; Puspokladany
+10:41; Hajduszoboszlo
+11:02; Debrecen
+11:34; Nyiregyhaza
+8:23; Budapest-Nyugati
+8:29; Zuglo
+8:37; Kobanya-Kispest
+8:43; Ferihegy
+9:18; Cegled
+9:38; Szolnok
+
+Hajdu IC (617) from: Nyiregyhaza to: Budapest-Nyugati
+
+10:11; Hajduszoboszlo
+10:31; Puspokladany
+11:22; Szolnok
+11:43; Cegled
+12:15; Ferihegy
+12:21; Kobanya-Kispest
+12:29; Zuglo
+12:37; Budapest-Nyugati
+9:21; Nyiregyhaza
+9:53; Debrecen
+
+Nyirseg IC (1023) from: Tokaj to: Debrecen
+Ismeretlen informacio

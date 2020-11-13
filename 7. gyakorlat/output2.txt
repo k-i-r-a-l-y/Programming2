@@ -1,0 +1,30 @@
+Puspokladany:
+10:21 - Pava IC(1652)
+10:31 - Hajdu IC(617)
+Hajduszoboszlo:
+10:11 - Hajdu IC(617)
+10:41 - Pava IC(1652)
+Debrecen:
+11:02 - Pava IC(1652)
+9:53 - Hajdu IC(617)
+Nyiregyhaza:
+11:34 - Pava IC(1652)
+9:21 - Hajdu IC(617)
+Budapest-Nyugati:
+12:37 - Hajdu IC(617)
+8:23 - Pava IC(1652)
+Zuglo:
+12:29 - Hajdu IC(617)
+8:29 - Pava IC(1652)
+Kobanya-Kispest:
+12:21 - Hajdu IC(617)
+8:37 - Pava IC(1652)
+Ferihegy:
+12:15 - Hajdu IC(617)
+8:43 - Pava IC(1652)
+Cegled:
+11:43 - Hajdu IC(617)
+9:18 - Pava IC(1652)
+Szolnok:
+11:22 - Hajdu IC(617)
+9:38 - Pava IC(1652)
