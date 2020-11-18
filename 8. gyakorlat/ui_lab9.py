@@ -9,6 +9,7 @@
 ################################################################################
 
 import worker as w
+import re
 from PySide2.QtCore import (QCoreApplication, QMetaObject, QObject, QPoint,
     QRect, QSize, QUrl, Qt)
 from PySide2.QtGui import (QBrush, QColor, QConicalGradient, QCursor, QFont,
@@ -91,18 +92,43 @@ class Ui_MainWindow(object):
         self.btn_add.clicked.connect(self.add_or_modify_worker)
         self.btn_edit.clicked.connect(self.edit_worker)
         self.btn_modify.clicked.connect(self.add_or_modify_worker)
+        self.btn_delete.clicked.connect(self.delete_worker)
     # setupUi
 
+    def delete_worker(self):
+        if not self.list_persons.currentItem():
+            msg = QMessageBox()
+            msg.setWindowTitle("Warning!")
+            msg.setText("Please select a worker for delete!")
+            msg.exec_()
+        else:
+            w = self.list_persons.currentItem().text()
+            id = w.split(",")[0]
+            for worker in self.workers:
+                if id == worker.get_id():
+                    self.workers.remove(worker)
+                    self.workers.sort()
+                    self.print_workers()
+                    self.save_to_file()
+                    self.clear_form_items()
+
     def edit_worker(self):
-        worker = self.list_persons.currentItem().text()
-        id = worker.split(",")[0]
-        for worker in self.workers:
-           if worker.get_id() == id:
-                self.in_idcode.setText(worker.get_id())
-                self.in_name.setText(worker.get_name())
-                self.in_address.setText(worker.get_address())
-                self.in_phone_number.setText(worker.get_phone_number())
-                self.in_email.setText(worker.get_email())
+        if not self.list_persons.currentItem():
+            msg = QMessageBox()
+            msg.setWindowTitle("Warning!")
+            msg.setText("Please select a worker for edit!")
+            msg.exec_()
+        else:
+            worker = self.list_persons.currentItem().text()
+            id = worker.split(",")[0]
+            for worker in self.workers:
+               if worker.get_id() == id:
+                    self.in_idcode.setText(worker.get_id())
+                    self.in_name.setText(worker.get_name())
+                    self.in_address.setText(worker.get_address())
+                    self.in_phone_number.setText(worker.get_phone_number())
+                    self.in_email.setText(worker.get_email())
+            self.in_idcode.setReadOnly(True)
 
     def print_workers(self):
         self.list_persons.clear()
@@ -110,20 +136,66 @@ class Ui_MainWindow(object):
             self.list_persons.addItem(worker.__str__())
 
     def add_or_modify_worker(self):
-        worker = w.Worker(self.in_idcode.text(),self.in_name.text(), self.in_address.text(), self.in_phone_number.text(), self.in_email.text())
-        if worker not in self.workers:
-            self.workers.append(worker)
-            self.workers.sort()
-            self.print_workers()
+        try:
+           id = self.in_idcode.text()
+           name = self.in_name.text()
+           address = self.in_address.text()
+           phone_number = self.in_phone_number.text()
+           e_mail = self.in_email.text()
+           if len(id) == 0:
+               raise w.MissingDataException("ID")
+           if len(name) == 0:
+               raise w.MissingDataException("Name")
+           if len(address) == 0:
+               raise w.MissingDataException("Address")
+           if len(phone_number) == 0:
+               raise w.MissingDataException("Phone number")
+           if len(e_mail) == 0:
+               raise w.MissingDataException("E-mail")
+           if len(phone_number) < 11 or len(phone_number) > 12 or not re.match('[+]36([0-9])',phone_number):
+               raise w.PhoneNumberFormatException
+           if not re.match('[0-9a-zA-Z_.-]+@[0-9a-zA-Z_.-]+(\.)[a-z]{2,4}$',e_mail):
+               raise w.EmailAddressFormatException
+
+        except w.MissingDataException as mde:
+            msg = QMessageBox()
+            msg.setWindowTitle("Warning!")
+            msg.setText(mde.__str__())
+            msg.exec_()
+        except w.PhoneNumberFormatException:
+            msg = QMessageBox()
+            msg.setWindowTitle("Phone number warning!")
+            msg.setText("Invalid phone number format!")
+            msg.exec_()
+        except:
+            msg = QMessageBox()
+            msg.setWindowTitle("E-mail warning!")
+            msg.setText("Invalid e-mail format")
+            msg.exec_()
         else:
-            for work_person in self.workers:
-                if work_person == worker:
-                    work_person.set_name(worker.get_name())
-                    work_person.set_address(worker.get_address())
-                    work_person.set_phone_number(worker.get_phone_number())
-                    work_person.set_email(worker.get_email())
-            self.print_workers()
-        self.save_to_file()
+            worker = w.Worker(self.in_idcode.text(), self.in_name.text(), self.in_address.text(),
+                              self.in_phone_number.text(), self.in_email.text())
+            if not self.in_idcode.isReadOnly():
+                if worker not in self.workers:
+                    self.workers.append(worker)
+                    self.workers.sort()
+                    self.print_workers()
+                else:
+                    msg = QMessageBox()
+                    msg.setWindowTitle("Warning!")
+                    msg.setText("Worker already added with this ID!")
+                    msg.exec_()
+            else:
+                for work_person in self.workers:
+                    if work_person == worker:
+                        work_person.set_name(worker.get_name())
+                        work_person.set_address(worker.get_address())
+                        work_person.set_phone_number(worker.get_phone_number())
+                        work_person.set_email(worker.get_email())
+                self.print_workers()
+                self.in_idcode.setReadOnly(False)
+            self.save_to_file()
+            self.clear_form_items()
 
     def save_to_file(self):
         f = open("database.txt","w")
@@ -142,6 +214,13 @@ class Ui_MainWindow(object):
             f.close()
         except:
             pass
+
+    def clear_form_items(self):
+        self.in_idcode.clear()
+        self.in_name.clear()
+        self.in_phone_number.clear()
+        self.in_address.clear()
+        self.in_email.clear()
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"Workers", None))

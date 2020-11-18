@@ -1,3 +1,4 @@
-1,Kiss István,Debrecen,+1341561,kiss@freemail.hu
-11,Kiss Béla,Budapest,+2542345,kiss@gmail.com
+1,Nagy Bálint,Nyíregyháza,+3625156156,ii@gmail.com
+2,Kiss Béla,Budapest,+3620123158,ii@gmail.com
 5,Nagy Attila,Kecskemét,+3624132153,nagy.att@gmail.com
+6,Lajos,Debrecen,+3620132456,l@gmail.com

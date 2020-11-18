@@ -1,4 +1,18 @@
 
+class PhoneNumberFormatException(Exception):
+    pass
+
+class EmailAddressFormatException(Exception):
+    pass
+
+class MissingDataException(Exception):
+
+    def __init__(self, value):
+        self.__value = value
+
+    def __str__(self):
+        return self.__value + " is missing!"
+
 class Worker:
 
     def __init__(self, id, name, address, phone_number, email):
